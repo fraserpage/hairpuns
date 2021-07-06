@@ -1,21 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>The Hair Puns Are Here</h1>
-{% for pun in hairpuns %}
+
   <div class="card">
-    <a href="{% url 'details' pun.id %}">
       <div class="card-content">
-        <span class="card-title">{{ pun.name }}</span>
-        <p>Description: {{ pun.description }}</p>
+        <h1>{{ pun.name }}</h1>
+        <p>{{ pun.description }}</p>
         {% if pun.exists  %}
           <p><strong>Does it exist?:</strong> Yes, it exists!</p>
         {% else %}
           <p><strong>Does it exist?:</strong> Sadly, I couldn't find a place that has this name.</p>
         {% endif %}
+        <p>
+          <a href="{{ pun.link}}">See it on Google Maps</a>
+        </p>
       </div>
-    </a>
   </div>
-{% endfor %}
 
 {% endblock %}
