@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>The Hair Puns Are Here</h1>
+{% for pun in hairpuns %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ pun.name }}</span>
+      <p>Description: {{ pun.description }}</p>
+      {% if pun.exists  %}
+        <p>Yes, it exists!</p>
+      {% else %}
+        <p>Sadly, I couldn't find a place that has this name.</p>
+      {% endif %}
+      <a href="{{ pun.streetview_link}}">See if on Google Maps</a>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
