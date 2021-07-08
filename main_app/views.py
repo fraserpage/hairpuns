@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Hairpun
 
 def home(request):
@@ -14,3 +15,15 @@ def hairpuns_index(request):
 def hairpuns_details(request, pun_id):
   hairpun = Hairpun.objects.get(id=pun_id)
   return render(request, 'hairpuns/details.html', {'pun':hairpun})
+
+class HairpunCreate(CreateView):
+  model = Hairpun
+  fields = '__all__'
+
+class HairpunUpdate(UpdateView):
+  model = Hairpun
+  fields = '__all__'
+
+class HairpunDelete(DeleteView):
+  model = Hairpun
+  success_url = '/hairpuns/'

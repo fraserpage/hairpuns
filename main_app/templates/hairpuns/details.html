@@ -15,6 +15,10 @@
           <a href="{{ pun.link}}">See it on Google Maps</a>
         </p>
       </div>
+      <div class="card-action">
+        <a href="{% url 'hairpuns_update' pun.id %}">Edit</a>
+        <a href="{% url 'hairpuns_delete' pun.id %}">Delete</a>
+    </div>
   </div>
 
 {% endblock %}
