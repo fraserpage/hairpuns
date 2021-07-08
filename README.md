@@ -1,2 +1,2 @@
 # hairpuns
-A website for collecting pun-based hair salon names
+A silly website for collecting pun-based hair salon names
