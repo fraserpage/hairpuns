@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
   {% if object %}
-    <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+    <h1>Edit Category</h1>
   {% else %}
-    <h1>Add a new Hair Pun</h1>
+    <h1>Create a Category</h1>
   {% endif %}
 
   <!-- Leaving the action empty makes the form post to the same url used to display it -->
@@ -16,9 +16,4 @@
     </table>
     <input type="submit" value="Submit!" class="btn">
   </form>
-
-  <script>
-    M.AutoInit();
-
-  </script>
 {% endblock %}

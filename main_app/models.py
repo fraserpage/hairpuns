@@ -3,12 +3,21 @@ from django.urls import reverse
 
 # Create your models here.
 
+class Category(models.Model):
+  name = models.CharField(max_length=100)
+  
+  def __str__(self):
+    return self.name
+  
+  def get_absolute_url(self):
+    return reverse('category_details', kwargs={'category_id': self.id})
 
 class Hairpun(models.Model):
   name = models.CharField(max_length=100)
   description = models.TextField(max_length=250)
   exists = models.BooleanField(default=False)
   link = models.URLField(max_length=200, blank=True)
+  categories = models.ManyToManyField(Category)
 
   def __str__(self):
     return self.name

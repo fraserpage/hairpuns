@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col">
+    <h1>{{ category.name }}</h1>
+
+    <a class="btn" href="{% url 'category_update' category.id %}">Edit</a>
+    <a class="btn" href="{% url 'category_delete' category.id %}">Delete</a>
+
+    {% for pun in category.hairpun_set.all %}
+     <div class="card">
+        <a href="{% url 'details' pun.id %}">
+          <div class="card-content">
+            <span class="card-title">{{ pun.name }}</span>
+            <p>Description: {{ pun.description }}</p>
+            {% if pun.exists  %}
+              <p><strong>Does it exist?:</strong> Yes, it exists!</p>
+            {% else %}
+              <p><strong>Does it exist?:</strong> Sadly, I couldn't find a place that has this name.</p>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Hair Puns in this Category yet. Add one!</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

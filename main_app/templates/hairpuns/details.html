@@ -8,21 +8,21 @@
 <div class="row">
   <div class="col m6">
     <div class="card">
-        <div class="card-content">
-          
-          <p>{{ pun.description }}</p>
-          {% if pun.exists  %}
-            <p><strong>Does it exist?:</strong> Yes, it exists!</p>
-          {% else %}
-            <p><strong>Does it exist?:</strong> Sadly, I couldn't find a place that has this name.</p>
-          {% endif %}
-          <p>
-            <a href="{{ pun.link}}">See it on Google Maps</a>
-          </p>
-        </div>
-        <div class="card-action">
-          <a href="{% url 'hairpuns_update' pun.id %}">Edit</a>
-          <a href="{% url 'hairpuns_delete' pun.id %}">Delete</a>
+      <div class="card-content">
+        
+        <p>{{ pun.description }}</p>
+        {% if pun.exists  %}
+          <p><strong>Does it exist?:</strong> Yes, it exists!</p>
+        {% else %}
+          <p><strong>Does it exist?:</strong> Sadly, I couldn't find a place that has this name.</p>
+        {% endif %}
+        <p>
+          <a href="{{ pun.link}}">See it on Google Maps</a>
+        </p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'hairpuns_update' pun.id %}">Edit</a>
+        <a href="{% url 'hairpuns_delete' pun.id %}">Delete</a>
       </div>
     </div>
   </div>
@@ -55,6 +55,35 @@
     {% else %}
       <div class="card-panel teal-text center-align">No visits logged. Add one!</div>
     {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+      <div>
+    {% if categories_in.count %}
+
+      {% if categories_in.count == 1 %}
+        Category
+      {% elif categories_in.count > 1 %}
+        Categories
+      {% endif %}
+
+      {% for category in categories_in %}
+        <a href="{% url 'category_details' category.id %}">{{category.name}}</a>
+        <a aria-label="remove from category" class="btn-small add-to-cat x" href="{% url 'un_assoc_category' pun.id category.id %}">x</a>
+      {% endfor %}
+
+    {% endif %}
+    </div>
+
+
+    Add to a category:
+      {% for category in categories_not_in %}
+        <a class="btn-small add-to-cat" href="{% url 'assoc_category' pun.id category.id %}">{{category.name}}</a>
+      {% empty %}
+        <em>This Hair Pin is in every category</em>
+      {% endfor %}
+    </div>
   </div>
 </div>
 
