@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Hairpun
+from .models import Hairpun, Visit
 
 def home(request):
   return render(request, 'home.html')
@@ -27,3 +27,9 @@ class HairpunUpdate(UpdateView):
 class HairpunDelete(DeleteView):
   model = Hairpun
   success_url = '/hairpuns/'
+
+def visit_create(request):
+  data = request.POST.dict()
+  del data['csrfmiddlewaretoken']
+  Visit.objects.create(**data)
+  return redirect('details', pun_id=data['hairpun_id'])

@@ -9,4 +9,6 @@ urlpatterns = [
   path('hairpuns/create', views.HairpunCreate.as_view(), name='hairpuns_create'),
   path('hairpuns/<int:pk>/update', views.HairpunUpdate.as_view(), name='hairpuns_update'),
   path('hairpuns/<int:pk>/delete', views.HairpunDelete.as_view(), name='hairpuns_delete'),
+  
+  path('visit/create', views.visit_create, name='visit_create'),
 ]

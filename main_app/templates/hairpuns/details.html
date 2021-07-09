@@ -1,24 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
-
-
-  <div class="card">
-      <div class="card-content">
-        <h1>{{ pun.name }}</h1>
-        <p>{{ pun.description }}</p>
-        {% if pun.exists  %}
-          <p><strong>Does it exist?:</strong> Yes, it exists!</p>
-        {% else %}
-          <p><strong>Does it exist?:</strong> Sadly, I couldn't find a place that has this name.</p>
-        {% endif %}
-        <p>
-          <a href="{{ pun.link}}">See it on Google Maps</a>
-        </p>
+<div class="row">
+  <div class="col">
+    <h1>{{ pun.name }}</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col m6">
+    <div class="card">
+        <div class="card-content">
+          
+          <p>{{ pun.description }}</p>
+          {% if pun.exists  %}
+            <p><strong>Does it exist?:</strong> Yes, it exists!</p>
+          {% else %}
+            <p><strong>Does it exist?:</strong> Sadly, I couldn't find a place that has this name.</p>
+          {% endif %}
+          <p>
+            <a href="{{ pun.link}}">See it on Google Maps</a>
+          </p>
+        </div>
+        <div class="card-action">
+          <a href="{% url 'hairpuns_update' pun.id %}">Edit</a>
+          <a href="{% url 'hairpuns_delete' pun.id %}">Delete</a>
       </div>
-      <div class="card-action">
-        <a href="{% url 'hairpuns_update' pun.id %}">Edit</a>
-        <a href="{% url 'hairpuns_delete' pun.id %}">Delete</a>
     </div>
   </div>
+  <div class="col m6">
+    <form method="post" action="/visit/create">
+      {% csrf_token %}
+      <label for="date">Date</label>
+      <input type="date" name="date" id="date">
+
+      <label for="thoughts">Thoughts</label>
+      <input type="text" name="thoughts" id="thoughts">
+
+      <input type="hidden" name="hairpun_id" value="{{pun.id}}">
+      <input type="submit" class="btn" value="Add Visit">
+    </form>
+    {% if pun.visit_set.exists %}
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Thoughts</th></tr>
+      </thead>
+      <tbody>
+        {% for visit in pun.visit_set.all %}
+          <tr>
+            <td>{{visit.date}}</td>
+            <td>{{visit.thoughts}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="card-panel teal-text center-align">No visits logged. Add one!</div>
+    {% endif %}
+  </div>
+</div>
 
 {% endblock %}
